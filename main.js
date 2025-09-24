@@ -1,6 +1,5 @@
-
 // Smooth scroll for anchor links
-const links = document.querySelectorAll('nav a[href^="#"]');
+const links = document.querySelectorAll('nav a[href^="#"], #mobile-menu a[href^="#"]');
 for (const link of links) {
   link.addEventListener('click', function(e) {
     e.preventDefault();
@@ -10,9 +9,31 @@ for (const link of links) {
         top: target.offsetTop - 70, // offset for fixed navbar
         behavior: 'smooth'
       });
+
+      // Close mobile menu after clicking a link
+      const mobileMenu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-menu-overlay');
+      if (mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+        overlay.classList.remove('active');
+      }
     }
   });
 }
+
+document.getElementById('mobile-menu-button').addEventListener('click', function() {
+  const menu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  menu.classList.add('active');
+  overlay.classList.add('active');
+});
+
+document.getElementById('close-menu-btn').addEventListener('click', function() {
+  const menu = document.getElementById('mobile-menu');
+  const overlay = document.getElementById('mobile-menu-overlay');
+  menu.classList.remove('active');
+  overlay.classList.remove('active');
+});
 
 // Fade-in animation on scroll
 function revealOnScroll() {
